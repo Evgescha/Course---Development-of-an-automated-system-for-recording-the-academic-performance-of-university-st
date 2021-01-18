@@ -1,24 +1,24 @@
-package net.codejava.javaee.bookstore.entity;
+package net.project.entity;
 
 
-public class LotteryType {
+public class TeacherM {
 	int id;
 	String name;
 
-	public LotteryType() {
+	public TeacherM() {
 	}
 
-	public LotteryType(int id) {
+	public TeacherM(int id) {
 		this.id = id;
 	}
 
-	public LotteryType(int id, String name) {
+	public TeacherM(int id, String name) {
 		this.id = id;
 		this.name=name;
 	}
 	
 	
-	public LotteryType(String name) {
+	public TeacherM(String name) {
 		super();
 		this.name = name;
 	}
