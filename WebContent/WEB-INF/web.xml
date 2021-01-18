@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+		http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>Books Management Web Application</display-name>
+
+	<context-param>
+		<param-name>jdbcURL</param-name>
+		<param-value>jdbc:mysql://127.0.0.1:3306/bookstore?useUnicode=true&amp;serverTimezone=UTC&amp;useSSL=false</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>jdbcUsername</param-name>
+		<param-value>root</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>jdbcPassword</param-name>
+		<param-value>1234</param-value>
+	</context-param>
+
+
+
+	<servlet>
+		<servlet-name>LotteryTypeListServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryTypeListServlet</servlet-name>
+		<url-pattern>/lottery_type</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LotteryTypeEditServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryTypeEditServlet</servlet-name>
+		<url-pattern>/lotteryTypeEdit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LotteryTypeUpdateServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryTypeUpdateServlet</servlet-name>
+		<url-pattern>/lotteryTypeUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LotteryTypeDeleteServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryTypeDeleteServlet</servlet-name>
+		<url-pattern>/lotteryTypeDelete</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>PrizeListServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.PrizeListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrizeListServlet</servlet-name>
+		<url-pattern>/prize</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PrizeEditServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.PrizeEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrizeEditServlet</servlet-name>
+		<url-pattern>/prizeEdit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PrizeUpdateServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.PrizeUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrizeUpdateServlet</servlet-name>
+		<url-pattern>/prizeUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PrizeDeleteServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.PrizeDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrizeDeleteServlet</servlet-name>
+		<url-pattern>/prizeDelete</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+	<servlet>
+		<servlet-name>LotteryListServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryListServlet</servlet-name>
+		<url-pattern>/lottery</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LotteryEditServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryEditServlet</servlet-name>
+		<url-pattern>/lotteryEdit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LotteryUpdateServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryUpdateServlet</servlet-name>
+		<url-pattern>/lotteryUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LotteryDeleteServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.LotteryDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LotteryDeleteServlet</servlet-name>
+		<url-pattern>/lotteryDelete</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+
+
+
+	<servlet>
+		<servlet-name>TicketListServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.TicketListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TicketListServlet</servlet-name>
+		<url-pattern>/ticket</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TicketEditServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.TicketEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TicketEditServlet</servlet-name>
+		<url-pattern>/ticketEdit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TicketUpdateServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.TicketUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TicketUpdateServlet</servlet-name>
+		<url-pattern>/ticketUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TicketDeleteServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.TicketDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TicketDeleteServlet</servlet-name>
+		<url-pattern>/ticketDelete</url-pattern>
+	</servlet-mapping>
+
+
+
+
+	<servlet>
+		<servlet-name>RezultListServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.RezultListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RezultListServlet</servlet-name>
+		<url-pattern>/rezult</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RezultEditServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.RezultEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RezultEditServlet</servlet-name>
+		<url-pattern>/rezultEdit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RezultUpdateServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.RezultUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RezultUpdateServlet</servlet-name>
+		<url-pattern>/rezultUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RezultDeleteServlet</servlet-name>
+		<servlet-class>net.codejava.javaee.bookstore.RezultDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RezultDeleteServlet</servlet-name>
+		<url-pattern>/rezultDelete</url-pattern>
+	</servlet-mapping>
+
+<filter>
+    <filter-name>CharacterSetFilter</filter-name>
+    <filter-class>net.codejava.javaee.bookstore.CharacterSetFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>CharacterSetFilter</filter-name>
+    <url-pattern>/** </url-pattern>
+</filter-mapping>
+
+
+<jsp-config>
+    <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
+</jsp-config>
+
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/Error.jsp</location>
+	</error-page>
+
+</web-app>
