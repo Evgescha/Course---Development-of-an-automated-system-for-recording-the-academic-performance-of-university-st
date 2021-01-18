@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.RezultDAO;
-import net.codejava.javaee.bookstore.entity.Rezult;
+import net.project.entity.ScoreM;
 
 public class RezultDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class RezultDeleteServlet extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		Rezult book = new Rezult(id);
+		ScoreM book = new ScoreM(id);
 		DAO.delete(book);
 		response.sendRedirect("rezult");
 

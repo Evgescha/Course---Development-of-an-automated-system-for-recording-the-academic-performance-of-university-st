@@ -10,10 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.codejava.javaee.bookstore.entity.Lottery;
-import net.codejava.javaee.bookstore.entity.LotteryType;
-import net.codejava.javaee.bookstore.entity.Prize;
-import net.codejava.javaee.bookstore.entity.Ticket;
+import net.project.entity.StudentM;
+import net.project.entity.GroupM;
+import net.project.entity.Prize;
+import net.project.entity.Ticket;
 
 
 public class TicketDAO {
@@ -75,7 +75,7 @@ public class TicketDAO {
 			int lottery= resultSet.getInt("lottery");
 			String numbers= resultSet.getString("numbers");
 
-			Lottery lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
+			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
 			Ticket entity = new Ticket(id, lType,numbers);
 			listEntity.add(entity);
 		}
@@ -134,7 +134,7 @@ public class TicketDAO {
 			int lottery= resultSet.getInt("lottery");
 			String numbers= resultSet.getString("numbers");
 
-			Lottery lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
+			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
 			entity = new Ticket(id, lType,numbers);
 			
 		}

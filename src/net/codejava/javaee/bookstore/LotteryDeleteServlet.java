@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.LotteryDAO;
-import net.codejava.javaee.bookstore.entity.Lottery;
+import net.project.entity.StudentM;
 
 public class LotteryDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +44,7 @@ public class LotteryDeleteServlet extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		Lottery book = new Lottery(id);
+		StudentM book = new StudentM(id);
 		DAO.delete(book);
 		response.sendRedirect("lottery");
 

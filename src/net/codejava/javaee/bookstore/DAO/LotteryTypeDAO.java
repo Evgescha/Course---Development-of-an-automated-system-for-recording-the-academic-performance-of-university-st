@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.codejava.javaee.bookstore.entity.LotteryType;
+import net.project.entity.GroupM;
 
 
 public class LotteryTypeDAO {
@@ -41,7 +41,7 @@ public class LotteryTypeDAO {
 		}
 	}
 
-	public boolean insert(LotteryType entity) throws SQLException {
+	public boolean insert(GroupM entity) throws SQLException {
 		String sql = "INSERT INTO lottery_type (name) VALUES (?)";
 		connect();
 
@@ -54,8 +54,8 @@ public class LotteryTypeDAO {
 		return rowInserted;
 	}
 
-	public List<LotteryType> listAll() throws SQLException {
-		List<LotteryType> listEntity = new ArrayList<>();
+	public List<GroupM> listAll() throws SQLException {
+		List<GroupM> listEntity = new ArrayList<>();
 
 		String sql = "SELECT * FROM lottery_type";
 
@@ -68,7 +68,7 @@ public class LotteryTypeDAO {
 			int id = resultSet.getInt("id");
 			String name = resultSet.getString("name");
 
-			LotteryType entity = new LotteryType(id, name);
+			GroupM entity = new GroupM(id, name);
 			listEntity.add(entity);
 		}
 
@@ -80,7 +80,7 @@ public class LotteryTypeDAO {
 		return listEntity;
 	}
 
-	public boolean delete(LotteryType entity) throws SQLException {
+	public boolean delete(GroupM entity) throws SQLException {
 		String sql = "DELETE FROM lottery_type where id = ?";
 
 		connect();
@@ -94,7 +94,7 @@ public class LotteryTypeDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(LotteryType entity) throws SQLException {
+	public boolean update(GroupM entity) throws SQLException {
 		String sql = "UPDATE lottery_type SET name = ?";
 		sql += " WHERE id = ?";
 		connect();
@@ -109,8 +109,8 @@ public class LotteryTypeDAO {
 		return rowUpdated;
 	}
 
-	public LotteryType get(int id) throws SQLException {
-		LotteryType entity = null;
+	public GroupM get(int id) throws SQLException {
+		GroupM entity = null;
 		String sql = "SELECT * FROM lottery_type WHERE id = ?";
 
 		connect();
@@ -123,7 +123,7 @@ public class LotteryTypeDAO {
 		if (resultSet.next()) {
 			String name = resultSet.getString("name");
 
-			entity = new LotteryType(id, name);
+			entity = new GroupM(id, name);
 		}
 
 		resultSet.close();

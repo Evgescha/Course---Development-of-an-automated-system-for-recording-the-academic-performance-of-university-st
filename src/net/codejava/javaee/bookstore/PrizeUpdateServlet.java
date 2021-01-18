@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.PrizeDAO;
-import net.codejava.javaee.bookstore.entity.Prize;
+import net.project.entity.Prize;
 
 public class PrizeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

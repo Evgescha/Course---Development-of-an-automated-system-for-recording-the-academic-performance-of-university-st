@@ -9,9 +9,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.codejava.javaee.bookstore.entity.Lottery;
-import net.codejava.javaee.bookstore.entity.Rezult;
-import net.codejava.javaee.bookstore.entity.Ticket;
+import net.project.entity.StudentM;
+import net.project.entity.ScoreM;
+import net.project.entity.Ticket;
 
 
 public class RezultDAO {
@@ -43,7 +43,7 @@ public class RezultDAO {
 		}
 	}
 
-	public boolean insert(Rezult entity) throws SQLException {
+	public boolean insert(ScoreM entity) throws SQLException {
 		String sql = "INSERT INTO result (lottery, numbers,winner) VALUES (?,?,?)";
 		connect();
 
@@ -59,8 +59,8 @@ public class RezultDAO {
 		return rowInserted;
 	}
 
-	public List<Rezult> listAll() throws SQLException {
-		List<Rezult> listEntity = new ArrayList<>();
+	public List<ScoreM> listAll() throws SQLException {
+		List<ScoreM> listEntity = new ArrayList<>();
 
 		String sql = "SELECT * FROM result";
 
@@ -75,9 +75,9 @@ public class RezultDAO {
 			String numbers= resultSet.getString("numbers");
 			int winner= resultSet.getInt("winner");
 			
-			Lottery lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
+			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
 			Ticket Twinner = new TicketDAO(jdbcURL, jdbcUsername, jdbcPassword).get(winner);
-			Rezult entity = new Rezult(id, lType, numbers, Twinner);
+			ScoreM entity = new ScoreM(id, lType, numbers, Twinner);
 			listEntity.add(entity);
 		}
 
@@ -89,7 +89,7 @@ public class RezultDAO {
 		return listEntity;
 	}
 
-	public boolean delete(Rezult entity) throws SQLException {
+	public boolean delete(ScoreM entity) throws SQLException {
 		String sql = "DELETE FROM result where id = ?";
 
 		connect();
@@ -103,7 +103,7 @@ public class RezultDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(Rezult entity) throws SQLException {
+	public boolean update(ScoreM entity) throws SQLException {
 		String sql = "UPDATE result SET lottery = ?, numbers=?, winner=?";
 		sql += " WHERE id = ?";
 		connect();
@@ -120,8 +120,8 @@ public class RezultDAO {
 		return rowUpdated;
 	}
 
-	public Rezult get(int id) throws SQLException {
-		Rezult entity = null;
+	public ScoreM get(int id) throws SQLException {
+		ScoreM entity = null;
 		String sql = "SELECT * FROM result WHERE id = ?";
 
 		connect();
@@ -139,8 +139,8 @@ public class RezultDAO {
 			
 			Ticket Twinner = new TicketDAO(jdbcURL, jdbcUsername, jdbcPassword).get(winner);
 			
-			Lottery lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
-			entity = new Rezult(id, lType,numbers,Twinner);
+			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
+			entity = new ScoreM(id, lType,numbers,Twinner);
 			
 		}
 

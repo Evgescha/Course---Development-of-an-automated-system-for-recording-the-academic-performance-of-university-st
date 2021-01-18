@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.LotteryTypeDAO;
-import net.codejava.javaee.bookstore.entity.LotteryType;
+import net.project.entity.GroupM;
 
 public class LotteryTypeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class LotteryTypeListServlet extends HttpServlet {
 
 	private void list(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<LotteryType> list = DAO.listAll();
+		List<GroupM> list = DAO.listAll();
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("LotteryTypeList.jsp");
 		dispatcher.forward(request, response);

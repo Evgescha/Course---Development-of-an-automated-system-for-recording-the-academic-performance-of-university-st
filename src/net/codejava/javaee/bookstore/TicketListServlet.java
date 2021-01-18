@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.TicketDAO;
-import net.codejava.javaee.bookstore.entity.Ticket;
+import net.project.entity.Ticket;
 
 public class TicketListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

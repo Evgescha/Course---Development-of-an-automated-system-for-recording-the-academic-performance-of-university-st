@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.codejava.javaee.bookstore.entity.Prize;
+import net.project.entity.Prize;
 
 
 public class PrizeDAO {

@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.codejava.javaee.bookstore.DAO.LotteryDAO;
 import net.codejava.javaee.bookstore.DAO.LotteryTypeDAO;
 import net.codejava.javaee.bookstore.DAO.PrizeDAO;
-import net.codejava.javaee.bookstore.entity.Lottery;
-import net.codejava.javaee.bookstore.entity.LotteryType;
-import net.codejava.javaee.bookstore.entity.Prize;
+import net.project.entity.StudentM;
+import net.project.entity.GroupM;
+import net.project.entity.Prize;
 
 public class LotteryEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class LotteryEditServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			List<LotteryType> listAllTypes = lotteryTypeDAO.listAll();
+			List<GroupM> listAllTypes = lotteryTypeDAO.listAll();
 			request.setAttribute("lotteryTypes", listAllTypes);
 			
 			List<Prize> listAllPrizes = prizeDAO.listAll();
@@ -68,7 +68,7 @@ public class LotteryEditServlet extends HttpServlet {
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Lottery existingBook = DAO.get(id);
+		StudentM existingBook = DAO.get(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("LotteryForm.jsp");
 		request.setAttribute("entity", existingBook);
 		dispatcher.forward(request, response);

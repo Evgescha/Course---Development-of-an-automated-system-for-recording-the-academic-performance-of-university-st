@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.TicketDAO;
-import net.codejava.javaee.bookstore.entity.Lottery;
-import net.codejava.javaee.bookstore.entity.LotteryType;
-import net.codejava.javaee.bookstore.entity.Prize;
-import net.codejava.javaee.bookstore.entity.Ticket;
+import net.project.entity.StudentM;
+import net.project.entity.GroupM;
+import net.project.entity.Prize;
+import net.project.entity.Ticket;
 
 public class TicketUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -53,7 +53,7 @@ public class TicketUpdateServlet extends HttpServlet {
 		int lottery= Integer.parseInt( request.getParameter("lottery"));
 		String numbers= request.getParameter("numbers");
 
-		Lottery type = new Lottery(lottery);
+		StudentM type = new StudentM(lottery);
 		
 		Ticket entity = new Ticket (type,numbers);
 		DAO.insert(entity);
@@ -66,7 +66,7 @@ public class TicketUpdateServlet extends HttpServlet {
 		int lottery= Integer.parseInt( request.getParameter("lottery"));
 		String numbers= request.getParameter("numbers");
 
-		Lottery type = new Lottery(lottery);
+		StudentM type = new StudentM(lottery);
 		
 		Ticket entity = new Ticket (id,type,numbers);
 		DAO.update(entity);

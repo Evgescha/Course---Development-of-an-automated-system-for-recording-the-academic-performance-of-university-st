@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.LotteryDAO;
-import net.codejava.javaee.bookstore.entity.Lottery;
-import net.codejava.javaee.bookstore.entity.LotteryType;
-import net.codejava.javaee.bookstore.entity.Prize;
+import net.project.entity.StudentM;
+import net.project.entity.GroupM;
+import net.project.entity.Prize;
 
 public class LotteryUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -53,10 +53,10 @@ public class LotteryUpdateServlet extends HttpServlet {
 		Date dates= Date.valueOf(request.getParameter("dates"));
 		int prize = Integer.parseInt(request.getParameter("prize"));
 
-		LotteryType type = new LotteryType(lottery_type);
+		GroupM type = new GroupM(lottery_type);
 		Prize priz= new Prize(prize);
 		
-		Lottery entity = new Lottery(type,dates,priz);
+		StudentM entity = new StudentM(type,dates,priz);
 		DAO.insert(entity);
 		response.sendRedirect("lottery");
 	}
@@ -68,10 +68,10 @@ public class LotteryUpdateServlet extends HttpServlet {
 		Date dates= Date.valueOf(request.getParameter("dates"));
 		int prize = Integer.parseInt(request.getParameter("prize"));
 
-		LotteryType type = new LotteryType(lottery_type);
+		GroupM type = new GroupM(lottery_type);
 		Prize priz= new Prize(prize);
 		
-		Lottery entity = new Lottery(id,type,dates,priz);
+		StudentM entity = new StudentM(id,type,dates,priz);
 		DAO.update(entity);
 		response.sendRedirect("lottery");
 	}

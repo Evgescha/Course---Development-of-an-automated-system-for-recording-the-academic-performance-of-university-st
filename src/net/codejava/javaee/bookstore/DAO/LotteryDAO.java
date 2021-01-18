@@ -10,9 +10,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.codejava.javaee.bookstore.entity.Lottery;
-import net.codejava.javaee.bookstore.entity.LotteryType;
-import net.codejava.javaee.bookstore.entity.Prize;
+import net.project.entity.StudentM;
+import net.project.entity.GroupM;
+import net.project.entity.Prize;
 
 
 public class LotteryDAO {
@@ -44,7 +44,7 @@ public class LotteryDAO {
 		}
 	}
 
-	public boolean insert(Lottery entity) throws SQLException {
+	public boolean insert(StudentM entity) throws SQLException {
 		String sql = "INSERT INTO lottery (lottery_type, dates, prize) VALUES (?,?,?)";
 		connect();
 
@@ -59,8 +59,8 @@ public class LotteryDAO {
 		return rowInserted;
 	}
 
-	public List<Lottery> listAll() throws SQLException {
-		List<Lottery> listEntity = new ArrayList<>();
+	public List<StudentM> listAll() throws SQLException {
+		List<StudentM> listEntity = new ArrayList<>();
 
 		String sql = "SELECT * FROM lottery";
 
@@ -75,9 +75,9 @@ public class LotteryDAO {
 			Date dates= resultSet.getDate("dates");
 			int prize= resultSet.getInt("prize");
 
-			LotteryType lType = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(type);
+			GroupM lType = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(type);
 			Prize lPrize = new PrizeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(prize);
-			Lottery entity = new Lottery(id, lType,dates,lPrize);
+			StudentM entity = new StudentM(id, lType,dates,lPrize);
 			listEntity.add(entity);
 		}
 
@@ -89,7 +89,7 @@ public class LotteryDAO {
 		return listEntity;
 	}
 
-	public boolean delete(Lottery entity) throws SQLException {
+	public boolean delete(StudentM entity) throws SQLException {
 		String sql = "DELETE FROM lottery where id = ?";
 
 		connect();
@@ -103,7 +103,7 @@ public class LotteryDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(Lottery entity) throws SQLException {
+	public boolean update(StudentM entity) throws SQLException {
 		String sql = "UPDATE lottery SET lottery_type = ?, dates=?, prize=?";
 		sql += " WHERE id = ?";
 		connect();
@@ -120,8 +120,8 @@ public class LotteryDAO {
 		return rowUpdated;
 	}
 
-	public Lottery get(int id) throws SQLException {
-		Lottery entity = null;
+	public StudentM get(int id) throws SQLException {
+		StudentM entity = null;
 		String sql = "SELECT * FROM lottery WHERE id = ?";
 
 		connect();
@@ -136,9 +136,9 @@ public class LotteryDAO {
 			Date dates= resultSet.getDate("dates");
 			int prize= resultSet.getInt("prize");
 
-			LotteryType lType = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(type);
+			GroupM lType = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(type);
 			Prize lPrize = new PrizeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(prize);
-			entity = new Lottery(id, lType,dates,lPrize);
+			entity = new StudentM(id, lType,dates,lPrize);
 		}
 
 		resultSet.close();

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.RezultDAO;
-import net.codejava.javaee.bookstore.entity.Rezult;
+import net.project.entity.ScoreM;
 
 public class RezultListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class RezultListServlet extends HttpServlet {
 
 	private void list(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<Rezult> list = DAO.listAll();
+		List<ScoreM> list = DAO.listAll();
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("RezultList.jsp");
 		dispatcher.forward(request, response);

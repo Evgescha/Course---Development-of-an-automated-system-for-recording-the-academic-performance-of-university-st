@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.LotteryTypeDAO;
-import net.codejava.javaee.bookstore.entity.LotteryType;
+import net.project.entity.GroupM;
 
 public class LotteryTypeEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,7 +54,7 @@ public class LotteryTypeEditServlet extends HttpServlet {
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		LotteryType existingBook = DAO.get(id);
+		GroupM existingBook = DAO.get(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("LotteryTypeForm.jsp");
 		request.setAttribute("entity", existingBook);
 		dispatcher.forward(request, response);

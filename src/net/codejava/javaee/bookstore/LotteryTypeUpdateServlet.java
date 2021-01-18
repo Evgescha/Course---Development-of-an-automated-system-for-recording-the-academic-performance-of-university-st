@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.LotteryTypeDAO;
-import net.codejava.javaee.bookstore.entity.LotteryType;
+import net.project.entity.GroupM;
 
 public class LotteryTypeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class LotteryTypeUpdateServlet extends HttpServlet {
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		String name = request.getParameter("name");
 
-		LotteryType entity = new LotteryType(name);
+		GroupM entity = new GroupM(name);
 		DAO.insert(entity);
 		response.sendRedirect("lottery_type");
 	}
@@ -55,7 +55,7 @@ public class LotteryTypeUpdateServlet extends HttpServlet {
 	private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String name= request.getParameter("name");
-		LotteryType entity= new LotteryType(id, name);
+		GroupM entity= new GroupM(id, name);
 		DAO.update(entity);
 		response.sendRedirect("lottery_type");
 	}

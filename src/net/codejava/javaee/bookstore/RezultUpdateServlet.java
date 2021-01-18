@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.codejava.javaee.bookstore.DAO.RezultDAO;
-import net.codejava.javaee.bookstore.entity.Lottery;
-import net.codejava.javaee.bookstore.entity.Rezult;
-import net.codejava.javaee.bookstore.entity.Ticket;
+import net.project.entity.StudentM;
+import net.project.entity.ScoreM;
+import net.project.entity.Ticket;
 
 public class RezultUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -52,9 +52,9 @@ public class RezultUpdateServlet extends HttpServlet {
 		String numbers= request.getParameter("numbers");
 		int winner= Integer.parseInt( request.getParameter("winner"));
 		
-		Lottery type = new Lottery(lottery);
+		StudentM type = new StudentM(lottery);
 		Ticket winnr = new Ticket (winner);
-		Rezult entity = new Rezult(type,numbers,winnr);
+		ScoreM entity = new ScoreM(type,numbers,winnr);
 		DAO.insert(entity);
 		response.sendRedirect("rezult");
 	}
@@ -66,9 +66,9 @@ public class RezultUpdateServlet extends HttpServlet {
 		String numbers= request.getParameter("numbers");
 		int winner= Integer.parseInt( request.getParameter("winner"));
 		
-		Lottery type = new Lottery(lottery);
+		StudentM type = new StudentM(lottery);
 		Ticket winnr = new Ticket (winner);
-		Rezult entity = new Rezult(id,type,numbers,winnr);
+		ScoreM entity = new ScoreM(id,type,numbers,winnr);
 		DAO.update(entity);
 		response.sendRedirect("rezult");
 	}
