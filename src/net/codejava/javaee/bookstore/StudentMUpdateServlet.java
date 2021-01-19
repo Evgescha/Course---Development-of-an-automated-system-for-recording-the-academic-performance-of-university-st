@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.SubjectMDAO;
-import net.codejava.javaee.bookstore.DAO.TeacherMDAO;
-import net.project.entity.SubjectM;
+import net.codejava.javaee.bookstore.DAO.GroupMDAO;
+import net.codejava.javaee.bookstore.DAO.StudentMDAO;
+import net.project.entity.StudentM;
 
-public class SubjectMUpdateServlet extends HttpServlet {
+public class StudentMUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private SubjectMDAO DAO;
+	private StudentMDAO DAO;
 	String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 	String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 	String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
 	public void init() {
-
-		DAO = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -47,19 +46,19 @@ public class SubjectMUpdateServlet extends HttpServlet {
 
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		String name = request.getParameter("name");
-		int teacherId = Integer.parseInt(request.getParameter("teacherId"));
-		SubjectM entity = new SubjectM(name, new TeacherMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(teacherId));
+		int groupId = Integer.parseInt(request.getParameter("groupId"));
+		StudentM entity = new StudentM(name, new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId));
 		DAO.insert(entity);
-		response.sendRedirect("group");
+		response.sendRedirect("student");
 	}
 
 	private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("name");
-		int teacherId = Integer.parseInt(request.getParameter("teacherId"));
-		SubjectM entity = new SubjectM(id,name, new TeacherMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(teacherId));
+		int groupId = Integer.parseInt(request.getParameter("groupId"));
+		StudentM entity = new StudentM(id,name, new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId));
 		DAO.update(entity);
-		response.sendRedirect("group");
+		response.sendRedirect("student");
 	}
 
 }

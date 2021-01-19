@@ -48,4 +48,10 @@ public class StudentM {
 		this.group = group;
 	}
 
+	public StudentM(int id) {
+		super();
+		this.id = id;
+	}
+	
+
 }
