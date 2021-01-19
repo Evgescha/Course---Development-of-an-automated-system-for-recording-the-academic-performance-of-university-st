@@ -10,16 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.project.DAO.ScoreMDAO;
+import net.project.DAO.StudentMDAO;
+import net.project.DAO.SubjectMDAO;
 import net.project.entity.ScoreM;
 
 public class ScoreMEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ScoreMDAO DAO;
 
+	String jdbcURL;
+	String jdbcUsername;
+	String jdbcPassword;
+
 	public void init() {
-		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+		jdbcURL = getServletContext().getInitParameter("jdbcURL");
+		jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
+		jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
 		DAO = new ScoreMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
@@ -46,8 +52,10 @@ public class ScoreMEditServlet extends HttpServlet {
 	}
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreForm.jsp");
+		request.setAttribute("students", new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
+		request.setAttribute("subjects", new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
 		dispatcher.forward(request, response);
 	}
 
@@ -56,6 +64,8 @@ public class ScoreMEditServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		ScoreM entity = DAO.get(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreForm.jsp");
+		request.setAttribute("students", new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
+		request.setAttribute("subjects", new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
 		request.setAttribute("entity", entity);
 		dispatcher.forward(request, response);
 

@@ -52,6 +52,10 @@ public class StudentM {
 		super();
 		this.id = id;
 	}
-	
+
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }
