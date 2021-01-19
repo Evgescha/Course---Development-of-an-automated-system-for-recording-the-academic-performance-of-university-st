@@ -24,19 +24,13 @@
 	<jsp:include page="header.html" />
 
 	<div align="center"  class="vission-section section">
-	<form action="lotteryTypeUpdate" method="post">
+	<form action="groupUpdate" method="post">
 			<table border="1" cellpadding="5">
-				<caption>
-					<h2>
-						<c:if test="${entity != null}">Редактировать</c:if>
-						<c:if test="${entity == null}">Добавить</c:if>
-					</h2>
-				</caption>
 				<c:if test="${entity != null}">
 					<input required type="hidden" name="id" value="<c:out value='${entity.id}' />" />
 				</c:if>
 				<tr>
-					<th>Название вида:</th>
+					<th>Название группы:</th>
 					<td><input required type="text" name="name" size="45" value="<c:out value='${entity.name}' />" /></td>
 				</tr>
 				<tr>
@@ -46,7 +40,7 @@
 		</form>
 		
 		 <h3 class="mt-5">
-        	<a href="lottery_type" class="button ">Назад</a>   	
+        	<a href="javascript:history.back()" class="button ">Назад</a>   	
         </h3>
 	</div>
 </body>

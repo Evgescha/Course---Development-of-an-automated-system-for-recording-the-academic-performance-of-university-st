@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>Виды лотерей</title>
+	<title>Группы</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" href="images/favicon.png">
@@ -25,7 +25,7 @@
 	
     <div align="center" class="vission-section section">
 
-		<h1  class="text-center mb-5">Работа с видами лотерей</h1>        
+		<h1  class="text-center mb-5">Группы</h1>        
 	
         <table border="1" cellpadding="5">
             <tr>
@@ -37,14 +37,14 @@
                     <td><c:out value="${entity.id}" /></td>
                     <td><c:out value="${entity.name}" /></td>
                     <td>
-                    	<a class="button button-secondary"  href="lotteryTypeEdit?id=<c:out value='${entity.id}' />">Редактировать</a>           	&nbsp;&nbsp;&nbsp;&nbsp;
-                    	<a class="button button-secondary"  href="lotteryTypeDelete?id=<c:out value='${entity.id}' />">Удалить</a>                    	
+                    	<a class="button button-secondary"  href="groupEdit?id=<c:out value='${entity.id}' />">Редактировать</a>           	&nbsp;&nbsp;&nbsp;&nbsp;
+                    	<a class="button button-secondary"  href="groupDelete?id=<c:out value='${entity.id}' />">Удалить</a>                    	
                     </td>
                 </tr>
             </c:forEach>
         </table>
         <h3 class="mt-5">
-        	<a href="lotteryTypeEdit" class="button ">Добавить новый вид</a>   	
+        	<a href="groupEdit" class="button ">Добавить запись</a>   	
         </h3>
     </div>	
 </body>
