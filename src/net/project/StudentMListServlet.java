@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.project.DAO.GroupMDAO;
-import net.project.entity.GroupM;
+import net.project.DAO.StudentMDAO;
+import net.project.entity.StudentM;
 
 public class StudentMListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GroupMDAO DAO;
+	private StudentMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -45,7 +45,7 @@ public class StudentMListServlet extends HttpServlet {
 
 	private void list(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<GroupM> list = DAO.listAll();
+		List<StudentM> list = DAO.listAll();
 		request.setAttribute("list", list);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("studentList.jsp");
 		dispatcher.forward(request, response);

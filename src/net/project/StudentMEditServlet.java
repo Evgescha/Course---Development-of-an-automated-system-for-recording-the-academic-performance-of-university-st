@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.project.DAO.GroupMDAO;
 import net.project.DAO.StudentMDAO;
 import net.project.entity.StudentM;
 
@@ -16,13 +17,14 @@ public class StudentMEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentMDAO DAO;
 
+	String jdbcURL;
+	String jdbcUsername;
+	String jdbcPassword;
 	public void init() {
-		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
-
+		jdbcURL = getServletContext().getInitParameter("jdbcURL");
+		jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
+		jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 		DAO = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -46,8 +48,9 @@ public class StudentMEditServlet extends HttpServlet {
 	}
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("studentForm.jsp");
+		request.setAttribute("groups", new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
 		dispatcher.forward(request, response);
 	}
 
@@ -57,6 +60,7 @@ public class StudentMEditServlet extends HttpServlet {
 		StudentM entity = DAO.get(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("studentForm.jsp");
 		request.setAttribute("entity", entity);
+		request.setAttribute("groups", new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
 		dispatcher.forward(request, response);
 
 	}

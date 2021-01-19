@@ -15,11 +15,13 @@ import net.project.entity.StudentM;
 public class StudentMUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentMDAO DAO;
-	String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-	String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-	String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
-
+	String jdbcURL;
+	String jdbcUsername;
+	String jdbcPassword;
 	public void init() {
+		jdbcURL = getServletContext().getInitParameter("jdbcURL");
+		jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
+		jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 		DAO = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
