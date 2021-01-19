@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.ScoreMDAO;
-import net.project.entity.ScoreM;
+import net.project.DAO.SubjectMDAO;
+import net.project.entity.SubjectM;
 
-public class ScoreMEditServlet extends HttpServlet {
+public class SubjectMEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ScoreMDAO DAO;
+	private SubjectMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new ScoreMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -47,15 +47,15 @@ public class ScoreMEditServlet extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("subjectForm.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		ScoreM entity = DAO.get(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreForm.jsp");
+		SubjectM entity = DAO.get(id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("subjectForm.jsp");
 		request.setAttribute("entity", entity);
 		dispatcher.forward(request, response);
 

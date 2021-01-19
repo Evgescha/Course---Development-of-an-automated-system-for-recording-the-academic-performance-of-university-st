@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.GroupMDAO;
-import net.project.entity.GroupM;
+import net.project.DAO.StudentMDAO;
+import net.project.entity.StudentM;
 
-public class TeacherMDeleteServlet extends HttpServlet {
+public class StudentMDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GroupMDAO DAO;
+	private StudentMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -44,9 +44,9 @@ public class TeacherMDeleteServlet extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		GroupM entity = new GroupM(id);
+		StudentM entity = new StudentM(id);
 		DAO.delete(entity);
-		response.sendRedirect("teacher");
+		response.sendRedirect("student");
 
 	}
 

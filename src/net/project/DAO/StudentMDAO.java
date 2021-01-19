@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore.DAO;
+package net.project.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.project.entity.GroupM;
+import net.project.entity.StudentM;
 
-
-public class GroupMDAO {
+public class StudentMDAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
-	public GroupMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+	public StudentMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;
@@ -41,12 +41,14 @@ public class GroupMDAO {
 		}
 	}
 
-	public boolean insert(GroupM entity) throws SQLException {
-		String sql = "INSERT INTO groupM (name) VALUES (?)";
+	public boolean insert(StudentM entity) throws SQLException {
+		String sql = "INSERT INTO studentM (name, groupM) VALUES (?,?)";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+
 		statement.setString(1, entity.getName());
+		statement.setLong(2, entity.getGroup().getId());
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -54,10 +56,10 @@ public class GroupMDAO {
 		return rowInserted;
 	}
 
-	public List<GroupM> listAll() throws SQLException {
-		List<GroupM> listEntity = new ArrayList<>();
+	public List<StudentM> listAll() throws SQLException {
+		List<StudentM> listEntity = new ArrayList<>();
 
-		String sql = "SELECT * FROM groupM";
+		String sql = "SELECT * FROM studentM";
 
 		connect();
 
@@ -67,8 +69,10 @@ public class GroupMDAO {
 		while (resultSet.next()) {
 			int id = resultSet.getInt("id");
 			String name = resultSet.getString("name");
+			int groupId = resultSet.getInt("groupM");
 
-			GroupM entity = new GroupM(id, name);
+			GroupM group = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId);
+			StudentM entity = new StudentM(id, name, group);
 			listEntity.add(entity);
 		}
 
@@ -80,8 +84,8 @@ public class GroupMDAO {
 		return listEntity;
 	}
 
-	public boolean delete(GroupM entity) throws SQLException {
-		String sql = "DELETE FROM groupM where id = ?";
+	public boolean delete(StudentM entity) throws SQLException {
+		String sql = "DELETE FROM studentM where id = ?";
 
 		connect();
 
@@ -94,14 +98,15 @@ public class GroupMDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(GroupM entity) throws SQLException {
-		String sql = "UPDATE groupM SET name = ?";
+	public boolean update(StudentM entity) throws SQLException {
+		String sql = "UPDATE studentM SET name = ?, groupM=?";
 		sql += " WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
 		statement.setString(1, entity.getName());
-		statement.setInt(2, entity.getId());
+		statement.setLong(2, entity.getGroup().getId());
+		statement.setLong(3, entity.getId());
 
 		boolean rowUpdated = statement.executeUpdate() > 0;
 		statement.close();
@@ -109,10 +114,9 @@ public class GroupMDAO {
 		return rowUpdated;
 	}
 
-	public GroupM get(int id) throws SQLException {
-		GroupM entity = null;
-		String sql = "SELECT * FROM groupM WHERE id = ?";
-
+	public StudentM get(int id) throws SQLException {
+		StudentM entity = null;
+		String sql = "SELECT * FROM studentM WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -121,9 +125,13 @@ public class GroupMDAO {
 		ResultSet resultSet = statement.executeQuery();
 
 		if (resultSet.next()) {
-			String name = resultSet.getString("name");
 
-			entity = new GroupM(id, name);
+			String name = resultSet.getString("name");
+			int groupId = resultSet.getInt("groupM");
+
+			GroupM group = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId);
+			entity = new StudentM(id, name, group);
+
 		}
 
 		resultSet.close();

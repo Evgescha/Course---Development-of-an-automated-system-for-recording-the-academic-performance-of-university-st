@@ -1,28 +1,26 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.SubjectMDAO;
-import net.project.entity.SubjectM;
+import net.project.DAO.GroupMDAO;
+import net.project.entity.GroupM;
 
-public class SubjectMListServlet extends HttpServlet {
+public class TeacherMDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private SubjectMDAO DAO;
+	private GroupMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -36,19 +34,20 @@ public class SubjectMListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			list(request, response);
+			delete(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private void list(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-		List<SubjectM> list = DAO.listAll();
-		request.setAttribute("list", list);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("subjectList.jsp");
-		dispatcher.forward(request, response);
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+
+		GroupM entity = new GroupM(id);
+		DAO.delete(entity);
+		response.sendRedirect("teacher");
+
 	}
 
 }

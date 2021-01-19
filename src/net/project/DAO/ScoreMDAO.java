@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore.DAO;
+package net.project.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,16 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.project.entity.GroupM;
+import net.project.entity.ScoreM;
 import net.project.entity.StudentM;
+import net.project.entity.SubjectM;
 
-public class StudentMDAO {
+public class ScoreMDAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
-	public StudentMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+	public ScoreMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;
@@ -41,14 +42,16 @@ public class StudentMDAO {
 		}
 	}
 
-	public boolean insert(StudentM entity) throws SQLException {
-		String sql = "INSERT INTO studentM (name, groupM) VALUES (?,?)";
+	public boolean insert(ScoreM entity) throws SQLException {
+		String sql = "INSERT INTO scoreM (studentM,subjectM,score,semestr) VALUES (?,?,?,?)";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
 
-		statement.setString(1, entity.getName());
-		statement.setLong(2, entity.getGroup().getId());
+		statement.setLong(1, entity.getStudent().getId());
+		statement.setLong(2, entity.getSubject().getId());
+		statement.setInt(3, entity.getScore());
+		statement.setInt(4, entity.getSemestr());
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -56,10 +59,10 @@ public class StudentMDAO {
 		return rowInserted;
 	}
 
-	public List<StudentM> listAll() throws SQLException {
-		List<StudentM> listEntity = new ArrayList<>();
+	public List<ScoreM> listAll() throws SQLException {
+		List<ScoreM> listEntity = new ArrayList<>();
 
-		String sql = "SELECT * FROM studentM";
+		String sql = "SELECT * FROM scoreM";
 
 		connect();
 
@@ -68,11 +71,14 @@ public class StudentMDAO {
 
 		while (resultSet.next()) {
 			int id = resultSet.getInt("id");
-			String name = resultSet.getString("name");
-			int groupId = resultSet.getInt("groupM");
+			int studentId = resultSet.getInt("studentM");
+			int subjectId = resultSet.getInt("subjectM");
+			int score = resultSet.getInt("score");
+			int semestr = resultSet.getInt("semestr");
 
-			GroupM group = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId);
-			StudentM entity = new StudentM(id, name, group);
+			StudentM student = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(studentId);
+			SubjectM subject = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(subjectId);
+			ScoreM entity = new ScoreM(id, student, subject, score, semestr);
 			listEntity.add(entity);
 		}
 
@@ -84,8 +90,8 @@ public class StudentMDAO {
 		return listEntity;
 	}
 
-	public boolean delete(StudentM entity) throws SQLException {
-		String sql = "DELETE FROM studentM where id = ?";
+	public boolean delete(ScoreM entity) throws SQLException {
+		String sql = "DELETE FROM scoreM where id = ?";
 
 		connect();
 
@@ -98,15 +104,16 @@ public class StudentMDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(StudentM entity) throws SQLException {
-		String sql = "UPDATE studentM SET name = ?, groupM=?";
-		sql += " WHERE id = ?";
+	public boolean update(ScoreM entity) throws SQLException {
+		String sql = "UPDATE scoreM SET studentM= ?, subjectM=?, score=?, semestr=? WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		statement.setString(1, entity.getName());
-		statement.setLong(2, entity.getGroup().getId());
-		statement.setLong(3, entity.getId());
+		statement.setLong(1, entity.getStudent().getId());
+		statement.setLong(2, entity.getSubject().getId());
+		statement.setInt(3, entity.getScore());
+		statement.setInt(4, entity.getSemestr());
+		statement.setLong(5, entity.getId());
 
 		boolean rowUpdated = statement.executeUpdate() > 0;
 		statement.close();
@@ -114,9 +121,9 @@ public class StudentMDAO {
 		return rowUpdated;
 	}
 
-	public StudentM get(int id) throws SQLException {
-		StudentM entity = null;
-		String sql = "SELECT * FROM studentM WHERE id = ?";
+	public ScoreM get(int id) throws SQLException {
+		ScoreM entity = null;
+		String sql = "SELECT * FROM scoreM WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -126,11 +133,14 @@ public class StudentMDAO {
 
 		if (resultSet.next()) {
 
-			String name = resultSet.getString("name");
-			int groupId = resultSet.getInt("groupM");
+			int studentId = resultSet.getInt("studentM");
+			int subjectId = resultSet.getInt("subjectM");
+			int score = resultSet.getInt("score");
+			int semestr = resultSet.getInt("semestr");
 
-			GroupM group = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId);
-			entity = new StudentM(id, name, group);
+			StudentM student = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(studentId);
+			SubjectM subject = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(subjectId);
+			entity = new ScoreM(id, student, subject, score, semestr);
 
 		}
 

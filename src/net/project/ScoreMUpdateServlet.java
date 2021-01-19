@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.ScoreMDAO;
-import net.codejava.javaee.bookstore.DAO.StudentMDAO;
-import net.codejava.javaee.bookstore.DAO.SubjectMDAO;
+import net.project.DAO.ScoreMDAO;
+import net.project.DAO.StudentMDAO;
+import net.project.DAO.SubjectMDAO;
 import net.project.entity.ScoreM;
 
 public class ScoreMUpdateServlet extends HttpServlet {

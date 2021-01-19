@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.GroupMDAO;
-import net.codejava.javaee.bookstore.DAO.StudentMDAO;
-import net.project.entity.StudentM;
+import net.project.DAO.TeacherMDAO;
+import net.project.entity.TeacherM;
 
-public class StudentMUpdateServlet extends HttpServlet {
+public class TeacherMUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private StudentMDAO DAO;
-	String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-	String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-	String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+	private TeacherMDAO DAO;
 
 	public void init() {
-		DAO = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
+		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
+		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+
+		DAO = new TeacherMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -46,19 +46,18 @@ public class StudentMUpdateServlet extends HttpServlet {
 
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		String name = request.getParameter("name");
-		int groupId = Integer.parseInt(request.getParameter("groupId"));
-		StudentM entity = new StudentM(name, new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId));
+
+		TeacherM entity = new TeacherM(name);
 		DAO.insert(entity);
-		response.sendRedirect("student");
+		response.sendRedirect("teacher");
 	}
 
 	private void update(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("name");
-		int groupId = Integer.parseInt(request.getParameter("groupId"));
-		StudentM entity = new StudentM(id,name, new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId));
+		TeacherM entity = new TeacherM(id, name);
 		DAO.update(entity);
-		response.sendRedirect("student");
+		response.sendRedirect("teacher");
 	}
 
 }

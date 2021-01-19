@@ -1,8 +1,7 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.GroupMDAO;
-import net.project.entity.GroupM;
+import net.project.DAO.TeacherMDAO;
+import net.project.entity.TeacherM;
 
-public class GroupMListServlet extends HttpServlet {
+public class TeacherMEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GroupMDAO DAO;
+	private TeacherMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new TeacherMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -36,19 +35,30 @@ public class GroupMListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			list(request, response);
+			if (request.getParameter("id") != null)
+				showEditForm(request, response);
+			else
+				showNewForm(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private void list(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-		List<GroupM> list = DAO.listAll();
-		request.setAttribute("list", list);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("groupList.jsp");
+	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("teacherForm.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		TeacherM entity = DAO.get(id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("teacherForm.jsp");
+		request.setAttribute("entity", entity);
+		dispatcher.forward(request, response);
+
 	}
 
 }

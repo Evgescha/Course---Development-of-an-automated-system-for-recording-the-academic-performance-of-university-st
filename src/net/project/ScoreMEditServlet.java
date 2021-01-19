@@ -1,8 +1,7 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.ScoreMDAO;
+import net.project.DAO.ScoreMDAO;
 import net.project.entity.ScoreM;
 
-public class ScoreMListServlet extends HttpServlet {
+public class ScoreMEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ScoreMDAO DAO;
 
@@ -36,19 +35,30 @@ public class ScoreMListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			list(request, response);
+			if (request.getParameter("id") != null)
+				showEditForm(request, response);
+			else
+				showNewForm(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private void list(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, IOException, ServletException {
-		List<ScoreM> list = DAO.listAll();
-		request.setAttribute("list", list);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreList.jsp");
+	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreForm.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		ScoreM entity = DAO.get(id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("scoreForm.jsp");
+		request.setAttribute("entity", entity);
+		dispatcher.forward(request, response);
+
 	}
 
 }

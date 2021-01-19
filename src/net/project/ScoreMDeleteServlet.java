@@ -1,27 +1,26 @@
-package net.codejava.javaee.bookstore;
+package net.project;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.GroupMDAO;
-import net.project.entity.GroupM;
+import net.project.DAO.ScoreMDAO;
+import net.project.entity.ScoreM;
 
-public class GroupMEditServlet extends HttpServlet {
+public class ScoreMDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GroupMDAO DAO;
+	private ScoreMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new ScoreMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -35,29 +34,19 @@ public class GroupMEditServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			if (request.getParameter("id") != null)
-				showEditForm(request, response);
-			else
-				showNewForm(request, response);
+			delete(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("groupForm.jsp");
-		dispatcher.forward(request, response);
-	}
-
-	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		GroupM existingBook = DAO.get(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("groupForm.jsp");
-		request.setAttribute("entity", existingBook);
-		dispatcher.forward(request, response);
+
+		ScoreM entity = new ScoreM(id);
+		DAO.delete(entity);
+		response.sendRedirect("score");
 
 	}
 
