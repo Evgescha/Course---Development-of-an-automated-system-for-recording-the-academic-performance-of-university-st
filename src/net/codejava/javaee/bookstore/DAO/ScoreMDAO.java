@@ -9,18 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.project.entity.StudentM;
 import net.project.entity.ScoreM;
-import net.project.entity.Ticket;
+import net.project.entity.StudentM;
+import net.project.entity.SubjectM;
 
-
-public class RezultDAO {
+public class ScoreMDAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
-	public RezultDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+	public ScoreMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;
@@ -44,14 +43,15 @@ public class RezultDAO {
 	}
 
 	public boolean insert(ScoreM entity) throws SQLException {
-		String sql = "INSERT INTO result (lottery, numbers,winner) VALUES (?,?,?)";
+		String sql = "INSERT INTO scoreM (studentM,subjectM,score,semestr) VALUES (?,?,?,?)";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		
-		statement.setInt(1, entity.getLottery().getId());		
-		statement.setString(2, entity.getNumbers());		
-		statement.setInt(3, entity.getWinner().getId());		
+
+		statement.setLong(1, entity.getStudent().getId());
+		statement.setLong(2, entity.getSubject().getId());
+		statement.setInt(3, entity.getScore());
+		statement.setInt(4, entity.getSemestr());
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -62,7 +62,7 @@ public class RezultDAO {
 	public List<ScoreM> listAll() throws SQLException {
 		List<ScoreM> listEntity = new ArrayList<>();
 
-		String sql = "SELECT * FROM result";
+		String sql = "SELECT * FROM scoreM";
 
 		connect();
 
@@ -71,13 +71,14 @@ public class RezultDAO {
 
 		while (resultSet.next()) {
 			int id = resultSet.getInt("id");
-			int lottery= resultSet.getInt("lottery");
-			String numbers= resultSet.getString("numbers");
-			int winner= resultSet.getInt("winner");
-			
-			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
-			Ticket Twinner = new TicketDAO(jdbcURL, jdbcUsername, jdbcPassword).get(winner);
-			ScoreM entity = new ScoreM(id, lType, numbers, Twinner);
+			int studentId = resultSet.getInt("studentM");
+			int subjectId = resultSet.getInt("subjectM");
+			int score = resultSet.getInt("score");
+			int semestr = resultSet.getInt("semestr");
+
+			StudentM student = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(studentId);
+			SubjectM subject = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(subjectId);
+			ScoreM entity = new ScoreM(id, student, subject, score, semestr);
 			listEntity.add(entity);
 		}
 
@@ -90,7 +91,7 @@ public class RezultDAO {
 	}
 
 	public boolean delete(ScoreM entity) throws SQLException {
-		String sql = "DELETE FROM result where id = ?";
+		String sql = "DELETE FROM scoreM where id = ?";
 
 		connect();
 
@@ -104,16 +105,16 @@ public class RezultDAO {
 	}
 
 	public boolean update(ScoreM entity) throws SQLException {
-		String sql = "UPDATE result SET lottery = ?, numbers=?, winner=?";
-		sql += " WHERE id = ?";
+		String sql = "UPDATE scoreM SET studentM= ?, subjectM=?, score=?, semestr=? WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		statement.setInt(1, entity.getLottery().getId());		
-		statement.setString(2, entity.getNumbers());		
-		statement.setInt(3, entity.getWinner().getId());
-		statement.setInt(4, entity.getId());
-		
+		statement.setLong(1, entity.getStudent().getId());
+		statement.setLong(2, entity.getSubject().getId());
+		statement.setInt(3, entity.getScore());
+		statement.setInt(4, entity.getSemestr());
+		statement.setLong(5, entity.getId());
+
 		boolean rowUpdated = statement.executeUpdate() > 0;
 		statement.close();
 		disconnect();
@@ -122,8 +123,7 @@ public class RezultDAO {
 
 	public ScoreM get(int id) throws SQLException {
 		ScoreM entity = null;
-		String sql = "SELECT * FROM result WHERE id = ?";
-
+		String sql = "SELECT * FROM scoreM WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -132,16 +132,16 @@ public class RezultDAO {
 		ResultSet resultSet = statement.executeQuery();
 
 		if (resultSet.next()) {
-			
-			int lottery= resultSet.getInt("lottery");
-			String numbers= resultSet.getString("numbers");
-			int winner= resultSet.getInt("winner");
-			
-			Ticket Twinner = new TicketDAO(jdbcURL, jdbcUsername, jdbcPassword).get(winner);
-			
-			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
-			entity = new ScoreM(id, lType,numbers,Twinner);
-			
+
+			int studentId = resultSet.getInt("studentM");
+			int subjectId = resultSet.getInt("subjectM");
+			int score = resultSet.getInt("score");
+			int semestr = resultSet.getInt("semestr");
+
+			StudentM student = new StudentMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(studentId);
+			SubjectM subject = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(subjectId);
+			entity = new ScoreM(id, student, subject, score, semestr);
+
 		}
 
 		resultSet.close();

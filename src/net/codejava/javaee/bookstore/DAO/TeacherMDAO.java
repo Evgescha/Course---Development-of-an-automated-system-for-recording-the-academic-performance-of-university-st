@@ -9,16 +9,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.project.entity.Prize;
+import net.project.entity.TeacherM;
 
 
-public class PrizeDAO {
+public class TeacherMDAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
-	public PrizeDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+	public TeacherMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;
@@ -41,13 +41,12 @@ public class PrizeDAO {
 		}
 	}
 
-	public boolean insert(Prize entity) throws SQLException {
-		String sql = "INSERT INTO prize (name,description) VALUES (?,?)";
+	public boolean insert(TeacherM entity) throws SQLException {
+		String sql = "INSERT INTO teacherM (name) VALUES (?)";
 		connect();
-		System.out.println("INSERT "+entity.getName());
+
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
 		statement.setString(1, entity.getName());
-		statement.setString(2, entity.getDescription());
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -55,10 +54,10 @@ public class PrizeDAO {
 		return rowInserted;
 	}
 
-	public List<Prize> listAll() throws SQLException {
-		List<Prize> listEntity = new ArrayList<>();
+	public List<TeacherM> listAll() throws SQLException {
+		List<TeacherM> listEntity = new ArrayList<>();
 
-		String sql = "SELECT * FROM prize";
+		String sql = "SELECT * FROM teacherM";
 
 		connect();
 
@@ -68,9 +67,8 @@ public class PrizeDAO {
 		while (resultSet.next()) {
 			int id = resultSet.getInt("id");
 			String name = resultSet.getString("name");
-			String description = resultSet.getString("description");
 
-			Prize entity = new Prize(id, name,description);
+			TeacherM entity = new TeacherM(id, name);
 			listEntity.add(entity);
 		}
 
@@ -82,8 +80,8 @@ public class PrizeDAO {
 		return listEntity;
 	}
 
-	public boolean delete(Prize entity) throws SQLException {
-		String sql = "DELETE FROM prize where id = ?";
+	public boolean delete(TeacherM entity) throws SQLException {
+		String sql = "DELETE FROM teacherM where id = ?";
 
 		connect();
 
@@ -96,15 +94,14 @@ public class PrizeDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(Prize entity) throws SQLException {
-		String sql = "UPDATE prize SET name = ?, description=?";
+	public boolean update(TeacherM entity) throws SQLException {
+		String sql = "UPDATE teacherM SET name = ?";
 		sql += " WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
 		statement.setString(1, entity.getName());
-		statement.setString(2, entity.getDescription());
-		statement.setInt(3, entity.getId());
+		statement.setInt(2, entity.getId());
 
 		boolean rowUpdated = statement.executeUpdate() > 0;
 		statement.close();
@@ -112,9 +109,9 @@ public class PrizeDAO {
 		return rowUpdated;
 	}
 
-	public Prize get(int id) throws SQLException {
-		Prize entity = null;
-		String sql = "SELECT * FROM prize WHERE id = ?";
+	public TeacherM get(int id) throws SQLException {
+		TeacherM entity = null;
+		String sql = "SELECT * FROM teacherM WHERE id = ?";
 
 		connect();
 
@@ -125,9 +122,8 @@ public class PrizeDAO {
 
 		if (resultSet.next()) {
 			String name = resultSet.getString("name");
-			String description = resultSet.getString("description");
 
-			entity = new Prize(id, name,description);
+			entity = new TeacherM(id, name);
 		}
 
 		resultSet.close();

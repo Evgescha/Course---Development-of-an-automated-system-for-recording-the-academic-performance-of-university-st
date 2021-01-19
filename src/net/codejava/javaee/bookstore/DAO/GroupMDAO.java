@@ -1,7 +1,6 @@
 package net.codejava.javaee.bookstore.DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,18 +9,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.project.entity.StudentM;
 import net.project.entity.GroupM;
-import net.project.entity.Prize;
 
 
-public class LotteryDAO {
+public class GroupMDAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
-	public LotteryDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+	public GroupMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;
@@ -44,14 +41,12 @@ public class LotteryDAO {
 		}
 	}
 
-	public boolean insert(StudentM entity) throws SQLException {
-		String sql = "INSERT INTO lottery (lottery_type, dates, prize) VALUES (?,?,?)";
+	public boolean insert(GroupM entity) throws SQLException {
+		String sql = "INSERT INTO groupM (name) VALUES (?)";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		statement.setInt(1, entity.getType().getId());
-		statement.setDate(2, entity.getDates());
-		statement.setInt(3, entity.getPrize().getId());
+		statement.setString(1, entity.getName());
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -59,10 +54,10 @@ public class LotteryDAO {
 		return rowInserted;
 	}
 
-	public List<StudentM> listAll() throws SQLException {
-		List<StudentM> listEntity = new ArrayList<>();
+	public List<GroupM> listAll() throws SQLException {
+		List<GroupM> listEntity = new ArrayList<>();
 
-		String sql = "SELECT * FROM lottery";
+		String sql = "SELECT * FROM groupM";
 
 		connect();
 
@@ -71,13 +66,9 @@ public class LotteryDAO {
 
 		while (resultSet.next()) {
 			int id = resultSet.getInt("id");
-			int type= resultSet.getInt("lottery_type");
-			Date dates= resultSet.getDate("dates");
-			int prize= resultSet.getInt("prize");
+			String name = resultSet.getString("name");
 
-			GroupM lType = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(type);
-			Prize lPrize = new PrizeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(prize);
-			StudentM entity = new StudentM(id, lType,dates,lPrize);
+			GroupM entity = new GroupM(id, name);
 			listEntity.add(entity);
 		}
 
@@ -89,8 +80,8 @@ public class LotteryDAO {
 		return listEntity;
 	}
 
-	public boolean delete(StudentM entity) throws SQLException {
-		String sql = "DELETE FROM lottery where id = ?";
+	public boolean delete(GroupM entity) throws SQLException {
+		String sql = "DELETE FROM groupM where id = ?";
 
 		connect();
 
@@ -103,26 +94,24 @@ public class LotteryDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(StudentM entity) throws SQLException {
-		String sql = "UPDATE lottery SET lottery_type = ?, dates=?, prize=?";
+	public boolean update(GroupM entity) throws SQLException {
+		String sql = "UPDATE groupM SET name = ?";
 		sql += " WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		statement.setInt(1, entity.getType().getId());
-		statement.setDate(2, entity.getDates());
-		statement.setInt(3, entity.getPrize().getId());
-		statement.setInt(4, entity.getId());
-		
+		statement.setString(1, entity.getName());
+		statement.setInt(2, entity.getId());
+
 		boolean rowUpdated = statement.executeUpdate() > 0;
 		statement.close();
 		disconnect();
 		return rowUpdated;
 	}
 
-	public StudentM get(int id) throws SQLException {
-		StudentM entity = null;
-		String sql = "SELECT * FROM lottery WHERE id = ?";
+	public GroupM get(int id) throws SQLException {
+		GroupM entity = null;
+		String sql = "SELECT * FROM groupM WHERE id = ?";
 
 		connect();
 
@@ -132,13 +121,9 @@ public class LotteryDAO {
 		ResultSet resultSet = statement.executeQuery();
 
 		if (resultSet.next()) {
-			int type= resultSet.getInt("lottery_type");
-			Date dates= resultSet.getDate("dates");
-			int prize= resultSet.getInt("prize");
+			String name = resultSet.getString("name");
 
-			GroupM lType = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(type);
-			Prize lPrize = new PrizeDAO(jdbcURL, jdbcUsername, jdbcPassword).get(prize);
-			entity = new StudentM(id, lType,dates,lPrize);
+			entity = new GroupM(id, name);
 		}
 
 		resultSet.close();

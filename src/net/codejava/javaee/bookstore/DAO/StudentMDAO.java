@@ -1,7 +1,6 @@
 package net.codejava.javaee.bookstore.DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,19 +9,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.project.entity.StudentM;
 import net.project.entity.GroupM;
-import net.project.entity.Prize;
-import net.project.entity.Ticket;
+import net.project.entity.StudentM;
 
-
-public class TicketDAO {
+public class StudentMDAO {
 	private String jdbcURL;
 	private String jdbcUsername;
 	private String jdbcPassword;
 	private Connection jdbcConnection;
 
-	public TicketDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
+	public StudentMDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
 		this.jdbcURL = jdbcURL;
 		this.jdbcUsername = jdbcUsername;
 		this.jdbcPassword = jdbcPassword;
@@ -45,14 +41,14 @@ public class TicketDAO {
 		}
 	}
 
-	public boolean insert(Ticket entity) throws SQLException {
-		String sql = "INSERT INTO ticket (lottery, numbers) VALUES (?,?)";
+	public boolean insert(StudentM entity) throws SQLException {
+		String sql = "INSERT INTO studentM (name, groupM) VALUES (?,?)";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		
-		statement.setInt(1, entity.getLottery().getId());		
-		statement.setString(2, entity.getNumbers());		
+
+		statement.setString(1, entity.getName());
+		statement.setLong(2, entity.getGroup().getId());
 
 		boolean rowInserted = statement.executeUpdate() > 0;
 		statement.close();
@@ -60,10 +56,10 @@ public class TicketDAO {
 		return rowInserted;
 	}
 
-	public List<Ticket> listAll() throws SQLException {
-		List<Ticket> listEntity = new ArrayList<>();
+	public List<StudentM> listAll() throws SQLException {
+		List<StudentM> listEntity = new ArrayList<>();
 
-		String sql = "SELECT * FROM ticket";
+		String sql = "SELECT * FROM studentM";
 
 		connect();
 
@@ -72,11 +68,11 @@ public class TicketDAO {
 
 		while (resultSet.next()) {
 			int id = resultSet.getInt("id");
-			int lottery= resultSet.getInt("lottery");
-			String numbers= resultSet.getString("numbers");
+			String name = resultSet.getString("name");
+			int groupId = resultSet.getInt("groupM");
 
-			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
-			Ticket entity = new Ticket(id, lType,numbers);
+			GroupM group = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId);
+			StudentM entity = new StudentM(id, name, group);
 			listEntity.add(entity);
 		}
 
@@ -88,8 +84,8 @@ public class TicketDAO {
 		return listEntity;
 	}
 
-	public boolean delete(Ticket entity) throws SQLException {
-		String sql = "DELETE FROM ticket where id = ?";
+	public boolean delete(StudentM entity) throws SQLException {
+		String sql = "DELETE FROM studentM where id = ?";
 
 		connect();
 
@@ -102,26 +98,25 @@ public class TicketDAO {
 		return rowDeleted;
 	}
 
-	public boolean update(Ticket entity) throws SQLException {
-		String sql = "UPDATE ticket SET lottery = ?, numbers=?";
+	public boolean update(StudentM entity) throws SQLException {
+		String sql = "UPDATE studentM SET name = ?, groupM=?";
 		sql += " WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
-		statement.setInt(1, entity.getLottery().getId());		
-		statement.setString(2, entity.getNumbers());		
-		statement.setInt(3, entity.getId());
-		
+		statement.setString(1, entity.getName());
+		statement.setLong(2, entity.getGroup().getId());
+		statement.setLong(3, entity.getId());
+
 		boolean rowUpdated = statement.executeUpdate() > 0;
 		statement.close();
 		disconnect();
 		return rowUpdated;
 	}
 
-	public Ticket get(int id) throws SQLException {
-		Ticket entity = null;
-		String sql = "SELECT * FROM ticket WHERE id = ?";
-
+	public StudentM get(int id) throws SQLException {
+		StudentM entity = null;
+		String sql = "SELECT * FROM studentM WHERE id = ?";
 		connect();
 
 		PreparedStatement statement = jdbcConnection.prepareStatement(sql);
@@ -130,13 +125,13 @@ public class TicketDAO {
 		ResultSet resultSet = statement.executeQuery();
 
 		if (resultSet.next()) {
-			
-			int lottery= resultSet.getInt("lottery");
-			String numbers= resultSet.getString("numbers");
 
-			StudentM lType = new LotteryDAO(jdbcURL, jdbcUsername, jdbcPassword).get(lottery);
-			entity = new Ticket(id, lType,numbers);
-			
+			String name = resultSet.getString("name");
+			int groupId = resultSet.getInt("groupM");
+
+			GroupM group = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword).get(groupId);
+			entity = new StudentM(id, name, group);
+
 		}
 
 		resultSet.close();
