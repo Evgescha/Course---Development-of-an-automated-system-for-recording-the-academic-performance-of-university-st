@@ -8,7 +8,7 @@
 
 	<context-param>
 		<param-name>jdbcURL</param-name>
-		<param-value>jdbc:mysql://127.0.0.1:3306/bookstore?useUnicode=true&amp;serverTimezone=UTC&amp;useSSL=false</param-value>
+		<param-value>jdbc:mysql://127.0.0.1:3306/PerformanceStudents?useUnicode=true&amp;serverTimezone=UTC&amp;useSSL=false</param-value>
 	</context-param>
 
 	<context-param>
@@ -24,117 +24,43 @@
 
 
 	<servlet>
-		<servlet-name>LotteryTypeListServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeListServlet</servlet-class>
+		<servlet-name>GroupMListServlet</servlet-name>
+		<servlet-class>net.project.GroupMListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>LotteryTypeListServlet</servlet-name>
-		<url-pattern>/lottery_type</url-pattern>
+		<servlet-name>GroupMListServlet</servlet-name>
+		<url-pattern>/group</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>LotteryTypeEditServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeEditServlet</servlet-class>
+		<servlet-name>GroupMEditServlet</servlet-name>
+		<servlet-class>net.project.GroupMEditServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>LotteryTypeEditServlet</servlet-name>
-		<url-pattern>/lotteryTypeEdit</url-pattern>
+		<servlet-name>GroupMEditServlet</servlet-name>
+		<url-pattern>/groupEdit</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>LotteryTypeUpdateServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeUpdateServlet</servlet-class>
+		<servlet-name>GroupMUpdateServlet</servlet-name>
+		<servlet-class>net.project.GroupMUpdateServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>LotteryTypeUpdateServlet</servlet-name>
-		<url-pattern>/lotteryTypeUpdate</url-pattern>
+		<servlet-name>GroupMUpdateServlet</servlet-name>
+		<url-pattern>/groupUpdate</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>LotteryTypeDeleteServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryTypeDeleteServlet</servlet-class>
+		<servlet-name>GroupMDeleteServlet</servlet-name>
+		<servlet-class>net.project.GroupMDeleteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>LotteryTypeDeleteServlet</servlet-name>
-		<url-pattern>/lotteryTypeDelete</url-pattern>
-	</servlet-mapping>
-
-
-	<servlet>
-		<servlet-name>PrizeListServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.PrizeListServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PrizeListServlet</servlet-name>
-		<url-pattern>/prize</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>PrizeEditServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.PrizeEditServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PrizeEditServlet</servlet-name>
-		<url-pattern>/prizeEdit</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>PrizeUpdateServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.PrizeUpdateServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PrizeUpdateServlet</servlet-name>
-		<url-pattern>/prizeUpdate</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>PrizeDeleteServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.PrizeDeleteServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>PrizeDeleteServlet</servlet-name>
-		<url-pattern>/prizeDelete</url-pattern>
+		<servlet-name>GroupMDeleteServlet</servlet-name>
+		<url-pattern>/groupDelete</url-pattern>
 	</servlet-mapping>
 
 
 
-
-
-	<servlet>
-		<servlet-name>LotteryListServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryListServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LotteryListServlet</servlet-name>
-		<url-pattern>/lottery</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>LotteryEditServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryEditServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LotteryEditServlet</servlet-name>
-		<url-pattern>/lotteryEdit</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>LotteryUpdateServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryUpdateServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LotteryUpdateServlet</servlet-name>
-		<url-pattern>/lotteryUpdate</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>LotteryDeleteServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.LotteryDeleteServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>LotteryDeleteServlet</servlet-name>
-		<url-pattern>/lotteryDelete</url-pattern>
-	</servlet-mapping>
 
 
 
@@ -144,97 +70,190 @@
 
 
 	<servlet>
-		<servlet-name>TicketListServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.TicketListServlet</servlet-class>
+		<servlet-name>StudentMListServlet</servlet-name>
+		<servlet-class>net.project.StudentMListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TicketListServlet</servlet-name>
-		<url-pattern>/ticket</url-pattern>
+		<servlet-name>StudentMListServlet</servlet-name>
+		<url-pattern>/student</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>TicketEditServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.TicketEditServlet</servlet-class>
+		<servlet-name>StudentMEditServlet</servlet-name>
+		<servlet-class>net.project.StudentMEditServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TicketEditServlet</servlet-name>
-		<url-pattern>/ticketEdit</url-pattern>
+		<servlet-name>StudentMEditServlet</servlet-name>
+		<url-pattern>/studentEdit</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>TicketUpdateServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.TicketUpdateServlet</servlet-class>
+		<servlet-name>StudentMUpdateServlet</servlet-name>
+		<servlet-class>net.project.StudentMUpdateServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TicketUpdateServlet</servlet-name>
-		<url-pattern>/ticketUpdate</url-pattern>
+		<servlet-name>StudentMUpdateServlet</servlet-name>
+		<url-pattern>/studentUpdate</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>TicketDeleteServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.TicketDeleteServlet</servlet-class>
+		<servlet-name>StudentMDeleteServlet</servlet-name>
+		<servlet-class>net.project.StudentMDeleteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TicketDeleteServlet</servlet-name>
-		<url-pattern>/ticketDelete</url-pattern>
+		<servlet-name>StudentMDeleteServlet</servlet-name>
+		<url-pattern>/studentDelete</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+	<servlet>
+		<servlet-name>TeacherMListServlet</servlet-name>
+		<servlet-class>net.project.TeacherMListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TeacherMListServlet</servlet-name>
+		<url-pattern>/teacher</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TeacherMEditServlet</servlet-name>
+		<servlet-class>net.project.TeacherMEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TeacherMEditServlet</servlet-name>
+		<url-pattern>/teacherEdit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TeacherMUpdateServlet</servlet-name>
+		<servlet-class>net.project.TeacherMUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TeacherMUpdateServlet</servlet-name>
+		<url-pattern>/teacherUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TeacherMDeleteServlet</servlet-name>
+		<servlet-class>net.project.TeacherMDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TeacherMDeleteServlet</servlet-name>
+		<url-pattern>/teacherDelete</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+
+	<servlet>
+		<servlet-name>SubjectMListServlet</servlet-name>
+		<servlet-class>net.project.SubjectMListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SubjectMListServlet</servlet-name>
+		<url-pattern>/subject</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SubjectMEditServlet</servlet-name>
+		<servlet-class>net.project.SubjectMEditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SubjectMEditServlet</servlet-name>
+		<url-pattern>/subjectEdit</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SubjectMUpdateServlet</servlet-name>
+		<servlet-class>net.project.SubjectMUpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SubjectMUpdateServlet</servlet-name>
+		<url-pattern>/subjectUpdate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SubjectMDeleteServlet</servlet-name>
+		<servlet-class>net.project.SubjectMDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SubjectMDeleteServlet</servlet-name>
+		<url-pattern>/subjectDelete</url-pattern>
 	</servlet-mapping>
 
 
 
 
 	<servlet>
-		<servlet-name>RezultListServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.RezultListServlet</servlet-class>
+		<servlet-name>ScoreMListServlet</servlet-name>
+		<servlet-class>net.project.ScoreMListServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>RezultListServlet</servlet-name>
-		<url-pattern>/rezult</url-pattern>
+		<servlet-name>ScoreMListServlet</servlet-name>
+		<url-pattern>/score</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>RezultEditServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.RezultEditServlet</servlet-class>
+		<servlet-name>ScoreMEditServlet</servlet-name>
+		<servlet-class>net.project.ScoreMEditServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>RezultEditServlet</servlet-name>
-		<url-pattern>/rezultEdit</url-pattern>
+		<servlet-name>ScoreMEditServlet</servlet-name>
+		<url-pattern>/scoreEdit</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>RezultUpdateServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.RezultUpdateServlet</servlet-class>
+		<servlet-name>ScoreMUpdateServlet</servlet-name>
+		<servlet-class>net.project.ScoreMUpdateServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>RezultUpdateServlet</servlet-name>
-		<url-pattern>/rezultUpdate</url-pattern>
+		<servlet-name>ScoreMUpdateServlet</servlet-name>
+		<url-pattern>/scoreUpdate</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>RezultDeleteServlet</servlet-name>
-		<servlet-class>net.codejava.javaee.bookstore.RezultDeleteServlet</servlet-class>
+		<servlet-name>ScoreMDeleteServlet</servlet-name>
+		<servlet-class>net.project.ScoreMDeleteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>RezultDeleteServlet</servlet-name>
-		<url-pattern>/rezultDelete</url-pattern>
+		<servlet-name>ScoreMDeleteServlet</servlet-name>
+		<url-pattern>/scoreDelete</url-pattern>
 	</servlet-mapping>
 
-<filter>
-    <filter-name>CharacterSetFilter</filter-name>
-    <filter-class>net.codejava.javaee.bookstore.CharacterSetFilter</filter-class>
-</filter>
+	<filter>
+		<filter-name>CharacterSetFilter</filter-name>
+		<filter-class>net.project.CharacterSetFilter</filter-class>
+	</filter>
 
-<filter-mapping>
-    <filter-name>CharacterSetFilter</filter-name>
-    <url-pattern>/** </url-pattern>
-</filter-mapping>
+	<filter-mapping>
+		<filter-name>CharacterSetFilter</filter-name>
+		<url-pattern>/** </url-pattern>
+	</filter-mapping>
 
 
-<jsp-config>
-    <jsp-property-group>
-        <url-pattern>*.jsp</url-pattern>
-        <page-encoding>UTF-8</page-encoding>
-    </jsp-property-group>
-</jsp-config>
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
 
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
