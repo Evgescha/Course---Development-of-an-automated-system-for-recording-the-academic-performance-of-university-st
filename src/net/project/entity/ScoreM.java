@@ -25,6 +25,11 @@ public class ScoreM {
 		this.semestr = semestr;
 	}
 
+	public ScoreM(int id) {
+		super();
+		this.id = id;
+	}
+
 	public int getId() {
 		return id;
 	}
