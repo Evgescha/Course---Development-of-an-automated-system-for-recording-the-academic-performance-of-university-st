@@ -10,16 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.project.DAO.SubjectMDAO;
+import net.project.DAO.TeacherMDAO;
 import net.project.entity.SubjectM;
 
 public class SubjectMEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SubjectMDAO DAO;
 
+	String jdbcURL;
+	String jdbcUsername;
+	String jdbcPassword;
 	public void init() {
-		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
-		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
-		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
+		jdbcURL = getServletContext().getInitParameter("jdbcURL");
+		jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
+		jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
 		DAO = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
@@ -46,8 +50,9 @@ public class SubjectMEditServlet extends HttpServlet {
 	}
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("subjectForm.jsp");
+		request.setAttribute("teachers", new TeacherMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
 		dispatcher.forward(request, response);
 	}
 
@@ -57,6 +62,7 @@ public class SubjectMEditServlet extends HttpServlet {
 		SubjectM entity = DAO.get(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("subjectForm.jsp");
 		request.setAttribute("entity", entity);
+		request.setAttribute("teachers", new TeacherMDAO(jdbcURL, jdbcUsername, jdbcPassword).listAll());
 		dispatcher.forward(request, response);
 
 	}
