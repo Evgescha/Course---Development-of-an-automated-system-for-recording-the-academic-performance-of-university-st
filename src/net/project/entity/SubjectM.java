@@ -1,7 +1,5 @@
 package net.project.entity;
 
-import java.sql.Date;
-
 public class SubjectM {
 	int id;
 	String name;
@@ -21,6 +19,14 @@ public class SubjectM {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public TeacherM getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(TeacherM teacher) {
+		this.teacher = teacher;
 	}
 
 	public SubjectM() {
