@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.GroupMDAO;
-import net.project.entity.GroupM;
+import net.codejava.javaee.bookstore.DAO.SubjectMDAO;
+import net.project.entity.SubjectM;
 
-public class GroupMEditServlet extends HttpServlet {
+public class SubjectMEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GroupMDAO DAO;
+	private SubjectMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new SubjectMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -47,16 +47,16 @@ public class GroupMEditServlet extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("groupForm.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("subjectForm.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		GroupM existingBook = DAO.get(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("groupForm.jsp");
-		request.setAttribute("entity", existingBook);
+		SubjectM entity = DAO.get(id);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("subjectForm.jsp");
+		request.setAttribute("entity", entity);
 		dispatcher.forward(request, response);
 
 	}

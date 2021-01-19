@@ -46,4 +46,9 @@ public class SubjectM {
 		this.teacher = teacher;
 	}
 
+	public SubjectM(int id) {
+		super();
+		this.id = id;
+	}
+
 }
