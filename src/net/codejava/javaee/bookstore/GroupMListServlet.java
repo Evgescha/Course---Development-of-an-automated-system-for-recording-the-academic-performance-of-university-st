@@ -2,6 +2,7 @@ package net.codejava.javaee.bookstore;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,19 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.LotteryTypeDAO;
+import net.codejava.javaee.bookstore.DAO.GroupMDAO;
 import net.project.entity.GroupM;
 
-public class LotteryTypeEditServlet extends HttpServlet {
+public class GroupMListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private LotteryTypeDAO DAO;
+	private GroupMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -35,30 +36,19 @@ public class LotteryTypeEditServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		try {
-			if (request.getParameter("id") != null)
-				showEditForm(request, response);
-			else
-				showNewForm(request, response);
+			list(request, response);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LotteryTypeForm.jsp");
+	private void list(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		List<GroupM> list = DAO.listAll();
+		request.setAttribute("list", list);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("groupList.jsp");
 		dispatcher.forward(request, response);
-	}
-
-	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		GroupM existingBook = DAO.get(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LotteryTypeForm.jsp");
-		request.setAttribute("entity", existingBook);
-		dispatcher.forward(request, response);
-
 	}
 
 }

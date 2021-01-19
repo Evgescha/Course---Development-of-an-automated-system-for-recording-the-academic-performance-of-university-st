@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.codejava.javaee.bookstore.DAO.LotteryTypeDAO;
+import net.codejava.javaee.bookstore.DAO.GroupMDAO;
 import net.project.entity.GroupM;
 
-public class LotteryTypeDeleteServlet extends HttpServlet {
+public class GroupMDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private LotteryTypeDAO DAO;
+	private GroupMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new LotteryTypeDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -44,9 +44,9 @@ public class LotteryTypeDeleteServlet extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		GroupM book = new GroupM(id);
-		DAO.delete(book);
-		response.sendRedirect("lottery_type");
+		GroupM entity = new GroupM(id);
+		DAO.delete(entity);
+		response.sendRedirect("group");
 
 	}
 
