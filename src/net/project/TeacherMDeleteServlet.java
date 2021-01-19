@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.project.DAO.GroupMDAO;
-import net.project.entity.GroupM;
+import net.project.DAO.TeacherMDAO;
+import net.project.entity.TeacherM;
 
 public class TeacherMDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GroupMDAO DAO;
+	private TeacherMDAO DAO;
 
 	public void init() {
 		String jdbcURL = getServletContext().getInitParameter("jdbcURL");
 		String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
 		String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-		DAO = new GroupMDAO(jdbcURL, jdbcUsername, jdbcPassword);
+		DAO = new TeacherMDAO(jdbcURL, jdbcUsername, jdbcPassword);
 
 	}
 
@@ -44,7 +44,7 @@ public class TeacherMDeleteServlet extends HttpServlet {
 	private void delete(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 
-		GroupM entity = new GroupM(id);
+		TeacherM entity = new TeacherM(id);
 		DAO.delete(entity);
 		response.sendRedirect("teacher");
 
