@@ -1,37 +1,11 @@
-/*
-Bilis - Agency Landing Page Template
-Author : aStylers
-Author URL : https://themeforest.net/user/astylers
-*/
 
-/*
-
-Table of Content:
-- fonts
-- general
-- form input
-- button
-- navbar
-- home intro
-- vission section
-- services
-- project
-- pricing table
-- testimonial
-- contact us
-- footer
-- footer bottom / copyright
-- responsive
-
-*/
-
-/* general */
 body {
     background: #06111e;
     color: #f8f8f8;
     font-size: 14px;
     font-weight: 400;
     font-family: 'Spartan', sans-serif;
+    background-image: url(../images/bg-home.png);
 }
 
 h1,
@@ -110,7 +84,7 @@ p:last-child {
 }
 
 .section {
-    padding: 120px 0;
+    padding: 20px 0 20px;;
 }
 
 .section-bottom-only {
@@ -304,8 +278,8 @@ form textarea:focus {
 
 /* home intro */
 .home-intro {
-    padding: 140px 0 110px;
-    background: url(../images/bg-home.png);
+    padding: 75px 0px;
+    
     background-size: cover;
 }
 
